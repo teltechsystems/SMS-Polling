@@ -20,14 +20,17 @@ class Poll(BaseModel):
         return self.response_set.all().count()
     
 class Answer(BaseModel):
-    poll                = models.ForeignKey(Poll)
-    answer              = models.CharField(max_length=100)
+    poll        = models.ForeignKey(Poll)
+    answer_text = models.CharField(max_length=100)
+    
+    def get_total_responses(self):
+        return self.response_set.all().count()
 
 class Response(BaseModel):
     class InvalidAnswerIndexException(Exception): pass
 
-    poll                = models.ForeignKey(Poll)
-    answer_index        = models.PositiveIntegerField()
+    poll        = models.ForeignKey(Poll)
+    answer      = models.ForeignKey(Answer)
     
     def save(self, *args, **kwargs):
         if self.answer_index <= 0 or self.answer_index > self.poll.answer_set.all().count():
