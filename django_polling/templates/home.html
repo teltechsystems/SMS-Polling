@@ -1,1 +1,18 @@
-Hello world
+{% extends "layout.html" %}
+
+{% block javascript %}
+<script type="text/javascript">
+    $(function() {
+        $('#current_poll').load('/polls/current');
+        
+        // $.post('/new-poll-listener', function(response) {
+        //     // Reload the window anytime this request comes back with something
+        //     $('#current_poll').load('/polls/current');
+        // }, 'json');
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="current_poll">Loading Poll...</div>
+{% endblock %}

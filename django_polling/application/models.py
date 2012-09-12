@@ -9,6 +9,16 @@ class BaseModel(models.Model):
 class Poll(BaseModel):
     question            = models.CharField(max_length=500)
     
+    @classmethod
+    def get_current(cls):
+        try:
+            return cls.objects.all().order_by('-id')[0]
+        except IndexError, e:
+            return None
+    
+    def total_responses(self):
+        return self.response_set.all().count()
+    
 class Answer(BaseModel):
     poll                = models.ForeignKey(Poll)
     answer              = models.CharField(max_length=100)
