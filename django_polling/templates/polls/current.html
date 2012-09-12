@@ -1,0 +1,71 @@
+{% if poll %}
+<script type="text/javascript">
+    $(function () {
+        var chart;
+        $(document).ready(function() {
+            chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'poll-results',
+                    type: 'column'
+                },
+                title: {
+                    text: '{{ poll.question|escapejs }}'
+                },
+                subtitle: {
+                    text: 'Check out these results!'
+                },
+                xAxis: {
+                    categories: [
+                        'Responses'
+                    ]
+                },
+                yAxis: {
+                    min: 0,
+                    tickInterval: 1,
+                    title: {
+                        text: 'Total Votes'
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    backgroundColor: '#FFFFFF',
+                    align: 'left',
+                    verticalAlign: 'top',
+                    x: 100,
+                    y: 70,
+                    floating: true,
+                    shadow: true
+                },
+                tooltip: {
+                    formatter: function() {
+                        return this.series.name + ' : ' + this.y;
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        animation: false,
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [
+                    {% for answer in poll.answer_set.all %}{
+                        name: '{{ answer.answer_text|escapejs }}',
+                        data: [{{ answer.get_total_responses }}]
+    
+                    }{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                ]
+            });
+        });
+        
+        $.post('{% url views.new_response_listener poll.id %}', function(response) {
+            // Reload the window anytime this request comes back with something
+            $('#current_poll').load('/polls/current');
+        }, 'json');
+    });
+</script>
+<div id="poll-results"></div>
+{% else %}
+<h1>Please wait for a new poll to begin.</h1>
+{% endif %}
