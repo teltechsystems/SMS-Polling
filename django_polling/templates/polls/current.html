@@ -50,7 +50,7 @@
                 },
                 series: [
                     {% for answer in poll.answer_set.all %}{
-                        name: '{{ answer.answer_text|escapejs }}',
+                        name: '{{ forloop.counter }} - {{ answer.answer_text|escapejs }}',
                         data: [{{ answer.get_total_responses }}]
     
                     }{% if not forloop.last %},{% endif %}
