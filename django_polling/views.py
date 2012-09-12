@@ -4,6 +4,23 @@ from django.shortcuts import render, HttpResponse, get_object_or_404
 import simplejson
 import time
 
+def admin(request):
+    if request.method == "POST":
+        question = request.POST.get('question')
+        answers = request.POST.get('answers')
+        
+        if len(question) and len(answers):
+            poll = Poll.objects.create(
+                question    = question
+            )
+            
+            for answer_text in answers.split("\n"):
+                poll.answer_set.create(
+                    answer_text     = answer_text
+                )
+
+    return render(request, 'admin.html')
+    
 def home(request):
     return render(request, 'home.html', {
         'recent_polls'  : Poll.objects.all().order_by('-id')[:5]

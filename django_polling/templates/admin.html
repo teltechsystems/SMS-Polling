@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block javascript %}
+{% endblock %}
+
+{% block content %}
+<form method="POST">
+    <fieldset>
+        <label>Question you want to ask</label>
+        <input name="question" type="text" value="Insert question here" onfocus="if($(this).get(0).defaultValue == $(this).val()) $(this).val('');"/>
+    </fieldset>
+    <fieldset>
+        <label>Possible answers, one per line</label>
+        <textarea name="answers" value="Insert question here" rows="5"></textarea>
+    </fieldset>
+    <input type="submit" value="Create the new Poll" />
+</form>
+{% endblock %}
