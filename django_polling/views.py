@@ -51,12 +51,15 @@ def new_response_listener(request, poll_id):
     except IndexError, e:
         recent_response = None
     
-    new_response = None
+    new_response = recent_response
     
     while True:
         time.sleep(1)
         
-        new_response = poll.response_set.all().order_by('-id')[0]
+        try:
+            new_response = poll.response_set.all().order_by('-id')[0]
+        except IndexError, e:
+            pass
         
         if new_response != recent_response:
             break
