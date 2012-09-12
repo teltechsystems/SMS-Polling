@@ -75,3 +75,23 @@ def polls_current(request):
     return render(request, 'polls/current.html', {
         'poll'      : Poll.get_current()
     })
+
+def telapi_inbound_sms(request):
+    running_poll = Poll.get_current()
+    
+    if running_poll:
+        answers = running_poll.answer_set.all()
+        
+        try:
+            answer_index = int(request.REQUEST.get('Body')) - 1
+            
+            answer = answers[answer_index]
+            
+            running_poll.response_set.create(
+                answer  = answer
+            )
+        except (TypeError, IndexError), e:
+            print e
+            pass
+            
+    return HttpResponse("Saved response")

@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     url(r'^polls/current$', 'views.polls_current'),
     url(r'^new-poll-listener$', 'views.new_poll_listener'),
     url(r'^poll/(?P<poll_id>\d+)/new-response-listener$', 'views.new_response_listener'),
+    url(r'^telapi/inbound/sms$', 'views.telapi_inbound_sms'),
     url(r'^admin$', 'views.admin'),
     url(r'^$', 'views.home'),
 )
