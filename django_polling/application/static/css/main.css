@@ -1,0 +1,36 @@
+.container > .brand {
+	color: #fff;
+}
+
+body {
+	background-color: #000;
+	color: #fff;
+}
+
+.hero-unit{
+	color: #000;
+}
+
+#telapi {
+	float: right;
+}
+
+#message {
+	padding: 0px 0px 0px 0px;
+	color: #fff;
+	font-size: 2.8em;
+	line-height: 1.5;
+}
+
+.nav-collapse > .nav{
+	float: right;
+}
+
+#twitter {
+	color: #fff;
+	font-size: 20px;
+}
+
+#twitter:hover{
+	color: #eee;
+}
