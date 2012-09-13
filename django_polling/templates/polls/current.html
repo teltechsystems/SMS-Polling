@@ -9,10 +9,12 @@
                     type: 'column'
                 },
                 title: {
-                    text: '{{ poll.question|escapejs }}'
+                    text: '{{ poll.question|escapejs }}',
+                    style: {
+                        fontSize: '28px',
+                    }
                 },
                 subtitle: {
-                    text: 'Check out these results!'
                 },
                 xAxis: {
                     categories: [
