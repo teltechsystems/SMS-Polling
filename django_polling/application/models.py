@@ -29,5 +29,6 @@ class Answer(BaseModel):
 class Response(BaseModel):
     class InvalidAnswerIndexException(Exception): pass
 
-    poll        = models.ForeignKey(Poll)
-    answer      = models.ForeignKey(Answer)
+    poll            = models.ForeignKey(Poll)
+    mobile_number   = models.CharField(max_length=25, blank=True, null=True)
+    answer          = models.ForeignKey(Answer)

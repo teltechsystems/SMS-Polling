@@ -88,7 +88,8 @@ def telapi_inbound_sms(request):
             answer = answers[answer_index]
             
             running_poll.response_set.create(
-                answer  = answer
+                mobile_number   = request.REQUEST.get('From'),
+                answer          = answer
             )
         except (TypeError, IndexError), e:
             print e
